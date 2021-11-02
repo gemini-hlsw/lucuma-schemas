@@ -3,7 +3,7 @@ val lucumaCoreVersion = "0.14.2"
 
 inThisBuild(
   List(
-    scalaVersion                                             := "2.13.6",
+    scalaVersion                                             := "2.13.7",
     homepage                                                 := Some(url("https://github.com/gemini-hlsw/lucuma-schemas")),
     Global / onChangedBuildSource                            := ReloadOnSourceChanges,
     scalafixDependencies += "edu.gemini"                     %% "clue-generator" % clueVersion,
@@ -12,7 +12,7 @@ inThisBuild(
   ) ++ lucumaPublishSettings
 )
 
-val scala2Version = "2.13.6"
+val scala2Version = "2.13.7"
 val allVersions   = List(scala2Version)
 
 val dependencies = List(
