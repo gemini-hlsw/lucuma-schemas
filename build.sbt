@@ -1,4 +1,4 @@
-val clueVersion            = "0.24.1"
+val clueVersion            = "0.25.1"
 val disciplineMUnitVersion = "1.0.9"
 val lucumaCoreVersion2     = "0.45.0"
 val lucumaCoreVersion      = "0.68.0"
