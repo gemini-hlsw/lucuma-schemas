@@ -1,13 +1,13 @@
 val circeVersion           = "0.14.6"
 val disciplineMUnitVersion = "1.0.9"
-val fs2Version             = "3.9.2"
-val kittensVersion         = "3.0.0"
+val fs2Version             = "3.9.3"
+val kittensVersion         = "3.1.0"
 val munitVersion           = "0.7.29"
 val munitCatsEffectVersion = "1.0.7"
-val lucumaCoreVersion      = "0.88.0"
-val lucumaODBSchema        = "0.6.1"
+val lucumaCoreVersion      = "0.88.2"
+val lucumaODBSchema        = "0.7.0"
 
-ThisBuild / tlBaseVersion       := "0.63"
+ThisBuild / tlBaseVersion       := "0.64"
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / crossScalaVersions  := Seq("3.3.1")
 ThisBuild / tlVersionIntroduced := Map("3" -> "0.29.0")

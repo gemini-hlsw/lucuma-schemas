@@ -1331,6 +1331,9 @@ type GmosNorthStepRecord implements StepRecord {
   """
   stepConfig: StepConfig!
 
+  """The observe class of this step."""
+  observeClass: ObserveClass!
+
   """Step QA state based on a combination of dataset QA states."""
   stepQaState: StepQaState
 
@@ -1732,6 +1735,9 @@ type GmosSouthStepRecord implements StepRecord {
   The step configuration. apart from instrument details in 'instrumentConfig'.
   """
   stepConfig: StepConfig!
+
+  """The observe class of this step."""
+  observeClass: ObserveClass!
 
   """Step QA state based on a combination of dataset QA states."""
   stepQaState: StepQaState
@@ -2479,6 +2485,7 @@ input RecordGmosNorthStepInput {
   atomId: AtomId!
   instrument: GmosNorthDynamicInput!
   stepConfig: StepConfigInput!
+  observeClass: ObserveClass!
 }
 
 """The result of recording a GmosNorth step."""
@@ -2504,6 +2511,7 @@ input RecordGmosSouthStepInput {
   atomId: AtomId!
   instrument: GmosSouthDynamicInput!
   stepConfig: StepConfigInput!
+  observeClass: ObserveClass!
 }
 
 """The result of recording a GmosSouth step."""
@@ -2864,7 +2872,9 @@ input TargetEditInput {
 }
 
 input GroupEditInput {
-  """Group ID"""
+  """
+  Group ID, or Null to watch top-level group(s), or omit to watch all groups.
+  """
   groupId: GroupId
 
   """Program ID"""
@@ -2903,8 +2913,11 @@ type GroupEdit {
   """Type of edit"""
   editType: EditType!
 
-  """Edited object"""
-  value: Group!
+  """Assocated program"""
+  program: Program!
+
+  """Edited group, or null if it's the top-level group."""
+  value: Group
   id: Long! @deprecated(reason: "id is no longer computed; a constant value is returned")
 }
 
@@ -3786,6 +3799,9 @@ type DatasetEvent implements ExecutionEvent {
   """Event type."""
   eventType: ExecutionEventType!
 
+  """The associated step."""
+  step: StepRecord!
+
   """Dataset execution stage."""
   datasetStage: DatasetStage!
 
@@ -3964,10 +3980,16 @@ type Exchange implements ProposalClass {
 type Execution {
   """
   Calculations dependent on the sequence, such as planned time and offsets.
+  If a sequence cannot be generated for this observation, `null` is returned
+  along with warning messages.
   """
-  digest: ExecutionDigest!
+  digest: ExecutionDigest
 
-  """Full execution config, including acquisition and science sequences."""
+  """
+  Full execution config, including acquisition and science sequences.  If a
+  sequence cannot be generated for this observation, `null` is returned along
+  with warning messages.
+  """
   config(
     """
     The maximum size (number of atoms) of the `possibleFuture` in the sequences.
@@ -3978,7 +4000,7 @@ type Execution {
     projected atom count is available in the execution digest.
     """
     futureLimit: NonNegInt = 25
-  ): ExecutionConfig!
+  ): ExecutionConfig
 
   """
   Executed (or at least partially executed) atom records, across all visits.
@@ -5000,6 +5022,21 @@ input CreateGroupInput {
 type CreateGroupResult {
   """The newly created group."""
   group: Group!
+}
+
+"""
+A period of time showing which position angles have guide stars available during the period.
+The position angles are tested every 10 degrees.
+"""
+type GuideAvailabilityPeriod {
+  """The start time of the availability period."""
+  start: Timestamp!
+
+  """Then end time of the availability period."""
+  end: Timestamp!
+
+  """The position angles available during this period."""
+  posAngles: [Angle!]!
 }
 
 """The guide star(s) and related information"""
@@ -6643,6 +6680,9 @@ interface StepRecord {
   """
   stepConfig: StepConfig!
 
+  """The observe class of this step."""
+  observeClass: ObserveClass!
+
   """Step QA state based on a combination of dataset QA states."""
   stepQaState: StepQaState
 
@@ -6799,6 +6839,19 @@ type TargetEnvironment {
     """The time used for the guide star calculations."""
     observationTime: Timestamp!
   ): [GuideEnvironment!]!
+
+  """
+  Availability of guide stars during a specified time range.
+  There can be multiple `GuideAvailabilityPeriod`s returned if availability changes over the time
+  range. In this case, the `end` of one period will be the same as the `start` of the next period.
+  """
+  guideAvailability(
+    """The starting time of the time range of interest."""
+    start: Timestamp!
+
+    """The ending time of the time range of interest."""
+    end: Timestamp!
+  ): [GuideAvailabilityPeriod!]!
 
   """When set, overrides the default base position of the target group"""
   explicitBase: Coordinates
