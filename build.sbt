@@ -5,7 +5,7 @@ val kittensVersion         = "3.1.0"
 val munitVersion           = "0.7.29"
 val munitCatsEffectVersion = "1.0.7"
 val lucumaCoreVersion      = "0.91.0"
-val lucumaODBSchema        = "0.8.0"
+val lucumaODBSchema        = "0.9.0"
 
 ThisBuild / tlBaseVersion       := "0.67"
 ThisBuild / tlCiReleaseBranches := Seq("main")
