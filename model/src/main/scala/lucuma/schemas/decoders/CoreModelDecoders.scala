@@ -14,7 +14,7 @@ import lucuma.core.math.WavelengthDelta
 import lucuma.core.math.WavelengthDither
 import lucuma.core.math.dimensional._
 import lucuma.core.model.Semester
-import lucuma.core.util.*
+import lucuma.core.util._
 
 trait CoreModelDecoders:
   given quantityDecoder[N: Decoder, U]: Decoder[Quantity[N, U]] =

@@ -4,20 +4,20 @@
 package lucuma.schemas.odb.input
 
 import clue.data.Input
-import clue.data.syntax.*
+import clue.data.syntax._
 import eu.timepit.refined.types.numeric.NonNegInt
 import eu.timepit.refined.types.numeric.PosBigDecimal
 import eu.timepit.refined.types.string.NonEmptyString
-import io.circe.syntax.*
+import io.circe.syntax._
 import lucuma.core.enums.Band
 import lucuma.core.enums.GmosNorthFpu
 import lucuma.core.enums.GmosSouthFpu
-import lucuma.core.math.BrightnessUnits.*
-import lucuma.core.math.*
-import lucuma.core.math.dimensional.*
-import lucuma.core.model.ExposureTimeMode.*
-import lucuma.core.model.ProposalClass.*
-import lucuma.core.model.*
+import lucuma.core.math.BrightnessUnits._
+import lucuma.core.math._
+import lucuma.core.math.dimensional._
+import lucuma.core.model.ExposureTimeMode._
+import lucuma.core.model.ProposalClass._
+import lucuma.core.model._
 import lucuma.core.model.sequence.StepConfig
 import lucuma.core.model.sequence.gmos.DynamicConfig
 import lucuma.core.model.sequence.gmos.GmosCcdMode
@@ -25,9 +25,9 @@ import lucuma.core.model.sequence.gmos.GmosFpuMask
 import lucuma.core.model.sequence.gmos.GmosGratingConfig
 import lucuma.core.model.sequence.gmos.GmosNodAndShuffle
 import lucuma.core.model.sequence.gmos.StaticConfig
-import lucuma.core.util.*
+import lucuma.core.util._
 import lucuma.schemas.ObservationDB.Enums.PosAngleConstraintMode
-import lucuma.schemas.ObservationDB.Types.*
+import lucuma.schemas.ObservationDB.Types._
 import lucuma.schemas.model.BasicConfiguration
 import lucuma.schemas.model.ObservingMode
 

@@ -12,7 +12,7 @@ import lucuma.core.model.Partner
 import lucuma.core.model.Proposal
 import lucuma.core.model.ProposalClass.LargeProgram
 import lucuma.core.model.ZeroTo100
-import lucuma.core.syntax.timespan.*
+import lucuma.core.syntax.timespan._
 import lucuma.refined._
 
 import scala.collection.immutable.SortedMap

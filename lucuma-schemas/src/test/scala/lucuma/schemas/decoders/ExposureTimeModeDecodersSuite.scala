@@ -6,7 +6,7 @@ package lucuma.schemas.decoders
 import eu.timepit.refined._
 import lucuma.core.math.SignalToNoise
 import lucuma.core.model.ExposureTimeMode
-import lucuma.core.syntax.timespan.*
+import lucuma.core.syntax.timespan._
 import lucuma.refined._
 
 class ExposureTimeModeDecodersSuite extends InputStreamSuite {
