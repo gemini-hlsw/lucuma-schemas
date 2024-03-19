@@ -1,11 +1,11 @@
 val circeVersion           = "0.14.6"
 val disciplineMUnitVersion = "1.0.9"
-val fs2Version             = "3.9.4"
+val fs2Version             = "3.10.0"
 val kittensVersion         = "3.3.0"
 val munitVersion           = "0.7.29"
 val munitCatsEffectVersion = "1.0.7"
 val lucumaCoreVersion      = "0.94.0"
-val lucumaODBSchema        = "0.11.1"
+val lucumaODBSchema        = "0.11.2"
 
 ThisBuild / tlBaseVersion       := "0.77"
 ThisBuild / tlCiReleaseBranches := Seq("main")
