@@ -6314,6 +6314,9 @@ type Program {
 
   """All user invitations associated with this program."""
   userInvitations: [UserInvitation!]!
+
+  """All partner time allocations."""
+  allocations: [Allocation!]!
 }
 
 """ProgramId id formatted as `p-[1-9a-f][0-9a-f]*`"""
@@ -7655,6 +7658,24 @@ enum TacCategory {
   EXTRAGALACTIC_OTHER
 }
 
+"""
+Calibration role
+Observations/Programs/Targets can have a calibration role
+"""
+enum CalibrationRole {
+  """CalibrationRole Twilight"""
+  TWILIGHT
+
+  """CalibrationRole Photometric"""
+  PHOTOMETRIC
+
+  """CalibrationRole SpectroPhotometric"""
+  SPECTROPHOTOMETRIC
+
+  """CalibrationRole Telluric"""
+  TELLURIC
+}
+
 """Target description"""
 type Target {
   """Target ID"""
@@ -7671,6 +7692,9 @@ type Target {
 
   """Target name."""
   name: NonEmptyString!
+
+  """calibration role"""
+  calibrationRole: CalibrationRole
 
   """source profile"""
   sourceProfile: SourceProfile!
