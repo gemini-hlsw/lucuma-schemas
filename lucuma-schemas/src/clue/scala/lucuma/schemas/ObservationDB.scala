@@ -89,6 +89,7 @@ trait ObservationDB {
     type CoolStarTemperature                 = enums.CoolStarTemperature
     type DatasetQaState                      = enums.DatasetQaState
     type DatasetStage                        = enums.DatasetStage
+    type EducationalStatus                   = lucuma.odb.data.EducationalStatus
     type EmailStatus                         = enums.EmailStatus
     type EphemerisKeyType                    = enums.EphemerisKeyType
     type FilterType                          = enums.FilterType
