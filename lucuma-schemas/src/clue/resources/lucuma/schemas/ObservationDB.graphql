@@ -5019,6 +5019,9 @@ type Execution {
     futureLimit: NonNegInt = 25
   ): ExecutionConfig
 
+  """Determines the execution state as a whole of this observation."""
+  state: ObservationExecutionState!
+
   """
   Executed (or at least partially executed) atom records, across all visits.
   """
@@ -6647,6 +6650,25 @@ type Observation {
   intent is to prompt PIs to review their accepted observations.
   """
   forReview: Boolean!
+}
+
+enum ObservationExecutionState {
+  """
+  The observation isn't sufficiently defined, or there is a problem that
+  must first be resolved.
+  """
+  NOT_DEFINED
+
+  """No execution visit has been recorded for this observation."""
+  NOT_STARTED
+
+  """
+  At least one visit was made for this observation, but it is not yet complete.
+  """
+  ONGOING
+
+  """No more science data is expected for this observation."""
+  COMPLETED
 }
 
 type Configuration {
