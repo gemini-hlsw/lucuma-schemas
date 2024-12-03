@@ -5028,7 +5028,7 @@ type Execution {
   ): ExecutionConfig
 
   """Determines the execution state as a whole of this observation."""
-  state: ObservationExecutionState!
+  executionState: ExecutionState!
 
   """
   Executed (or at least partially executed) atom records, across all visits.
@@ -6646,22 +6646,23 @@ type Observation {
   workflow: ObservationWorkflow!
 }
 
-enum ObservationExecutionState {
+enum ExecutionState {
   """
-  The observation isn't sufficiently defined, or there is a problem that
-  must first be resolved.
+  The sequence or observation isn't sufficiently defined, or there is a problem
+  that must first be resolved.
   """
   NOT_DEFINED
 
-  """No execution visit has been recorded for this observation."""
+  """No execution visit has been recorded."""
   NOT_STARTED
 
   """
-  At least one visit was made for this observation, but it is not yet complete.
+  At least one visit was made, but the sequence or observation is not yet
+  complete.
   """
   ONGOING
 
-  """No more science data is expected for this observation."""
+  """No more data is expected."""
   COMPLETED
 }
 
@@ -7363,6 +7364,34 @@ type Query {
   ): ObservationSelectResult!
 
   """
+  Observations grouped by commonly held observing modes. Identify the program by
+  specifying only one of programId, programReference, or proposalReference.  If
+  more than one is provided, all must match.  If none are set, nothing will
+  match.
+  """
+  observingModeGroup(
+    """Program ID"""
+    programId: ProgramId
+
+    """Proposal Reference"""
+    proposalReference: ProposalReferenceLabel
+
+    """Program reference"""
+    programReference: ProgramReferenceLabel
+
+    """Filters the selection of observations."""
+    WHERE: WhereObservation
+
+    """
+    Limits the result to at most this number of matches (but never more than 1000).
+    """
+    LIMIT: NonNegInt
+
+    """Set to true to include deleted values"""
+    includeDeleted: Boolean! = false
+  ): ObservingModeGroupSelectResult!
+
+  """
   Returns the program with the given id or reference, if any. Identify the
   program by specifying only one of programId, programReference, or
   proposalReference. If more than one is provided, all must match.  If none are
@@ -7530,9 +7559,6 @@ type ObservingMode {
 }
 
 type ObservingModeGroup {
-  """IDs of observations that use the same constraints"""
-  observationIds: [ObservationId!]!
-
   """Observations associated with the common value"""
   observations(
     """Set to true to include deleted values"""
@@ -7550,7 +7576,10 @@ type ObservingModeGroup {
   ): ObservationSelectResult!
 
   """Commonly held value across the observations"""
-  observingMode: ObservingMode
+  observingMode: ObservingMode!
+
+  """Link back to program."""
+  program: Program!
 }
 
 """
@@ -7679,6 +7708,13 @@ type SequenceDigest {
   and any remaining atoms not included in 'possibleFuture'.
   """
   atomCount: NonNegInt!
+
+  """
+  Execution state for the sequence. Note, acquisition sequences are never
+  'COMPLETED'.  The execution state for the observation as a whole is that of
+  the science sequence.
+  """
+  executionState: ExecutionState!
 }
 
 """
