@@ -473,6 +473,13 @@ input CallForProposalsPropertiesInput {
   semester: Semester
 
   """
+  The CfP title.  If not set then a title will be determined from the CfP
+  properties.  This property is not required on create and may be assigned
+  a null value to return to the default.
+  """
+  title: NonEmptyString
+
+  """
   Coordinate limits.  If not specified, they will default according to the
   coordinates that are safely visible during the active period of the call.
   """
@@ -5138,6 +5145,9 @@ enum ChargeClass {
 
 """Cloud extinction"""
 enum CloudExtinctionPreset {
+  """CloudExtinctionPreset Zero"""
+  ZERO
+
   """CloudExtinctionPreset PointOne"""
   POINT_ONE
 
@@ -5149,9 +5159,6 @@ enum CloudExtinctionPreset {
 
   """CloudExtinctionPreset OnePointZero"""
   ONE_POINT_ZERO
-
-  """CloudExtinctionPreset OnePointFive"""
-  ONE_POINT_FIVE
 
   """CloudExtinctionPreset TwoPointZero"""
   TWO_POINT_ZERO
